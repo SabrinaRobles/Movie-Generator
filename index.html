@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Movie Viewer</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Custom styles can be added here */
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Random Movie Title Generator</h2>
+        <button id="randomMovieBtn" class="btn btn-primary">Show Random Movie</button>
+        <div id="movieDisplay" class="mt-3">
+          <!-- Movie title and image will be displayed here -->
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h2>Movie Options</h2>
+        <select id="movieOptionsDropdown" class="form-select">
+          <!-- Movie options will be populated here -->
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Movie data
+    const movieOptions = [
+      {
+        title: "Iron Man",
+        reasonWhy: "For my tech savvys, there is a lot of tech going on in this movie",
+        movieImageURL: "https://www.imdb.com/title/tt0371746/mediaviewer/rm1544850432/?ref_=tt_ov_i"
+      },
+      {
+        title: "Interstellar",
+        reasonWhy: "It's a trippy movie that will change the way you view the world",
+        movieImageURL: "https://image.tmdb.org/t/p/original/yUa0iCocBPsGJ79BwrshHqz45Qc.jpg"
+      },
+      {
+        title: "Return of the Jedi",
+        reasonWhy: "It's a masterpiece, just watch it",
+        movieImageURL: "https://image.tmdb.org/t/p/original/ydjp1K13GrnbiX0yjd398BI9xaC.jpg"
+      }
+    ];
+
+    // Function to display movie options in dropdown
+    function displayMovieOptions() {
+      const dropdown = document.getElementById('movieOptionsDropdown');
+      dropdown.innerHTML = ''; // Clear previous options
+
+      movieOptions.forEach(movie => {
+        const option = document.createElement('option');
+        option.text = movie.title;
+        dropdown.add(option);
+      });
+    }
+
+    // Function to display random movie title and image
+    function displayRandomMovie() {
+      const randomIndex = Math.floor(Math.random() * movieOptions.length);
+      const randomMovie = movieOptions[randomIndex];
+      const movieDisplay = document.getElementById('movieDisplay');
+      movieDisplay.innerHTML = `
+        <h3>${randomMovie.title}</h3>
+        <p>${randomMovie.reasonWhy}</p>
+        <img src="${randomMovie.movieImageURL}" alt="${randomMovie.title}" class="img-fluid">
+      `;
+    }
+
+    // Event listener for button click to display random movie
+    document.getElementById('randomMovieBtn').addEventListener('click', displayRandomMovie);
+
+    // Populate movie options dropdown when the page loads
+    displayMovieOptions();
+  </script>
+</body>
+</html>
